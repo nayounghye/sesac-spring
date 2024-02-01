@@ -277,7 +277,7 @@
     <fieldset>
     이름 <input type="text" name="name">
     <br/>
-    성별 <input type="radio" name="gender"> 남자 <input type="radio" name="gender"> 여자
+    성별 <input type="radio" name="gender" value="남자"> 남자 <input type="radio" name="gender" value="여자"> 여자
     <br/>
     생년월일 <label for="year">년:</label>
     <select id="year" name="year"></select>
@@ -290,21 +290,20 @@
 
     <script src="script.js"></script>
     <br/>
-    관심사 <input type="checkbox" name="tour"> 여행
-    <input type="checkbox" name="fashion"> 패션
-    <input type="checkbox" name="food"> 음식
+    관심사 <input type="checkbox" name="hobby" value="여행"> 여행
+    <input type="checkbox" name="hobby" value="패션"> 패션
+    <input type="checkbox" name="hobby" value="음식"> 음식
     </fieldset>
     <button type="submit">회원가입</button>
 </form>
 <br/>
 
 <script>
-    // 생년월일 입력을 위한 연도, 월, 일의 선택지 생성
 const yearSelect = document.getElementById("year");
 const monthSelect = document.getElementById("month");
 const daySelect = document.getElementById("day");
 
-    <!--   연도 선택지 생성 (예: 1950부터 현재 년도까지)-->
+    <!-- 연도 만들자! -->
     const currentYear = new Date().getFullYear();
     for (let year = 1950; year <= currentYear; year++) {
         const option = document.createElement("option");
@@ -313,7 +312,7 @@ const daySelect = document.getElementById("day");
         yearSelect.appendChild(option);
     }
 
-    // 월 선택지 생성 (1부터 12까지)
+    // 월 만들자!
     for (let month = 1; month <= 12; month++) {
         const option = document.createElement("option");
         option.value = month;
@@ -321,7 +320,7 @@ const daySelect = document.getElementById("day");
         monthSelect.appendChild(option);
     }
 
-    // 일 선택지 생성 (1부터 31까지)
+    // 일 만들자!
     for (let day = 1; day <= 31; day++) {
         const option = document.createElement("option");
         option.value = day;

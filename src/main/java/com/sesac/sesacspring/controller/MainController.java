@@ -122,11 +122,9 @@ public class MainController<value> {
         return "내 이름은 " + name;
     }
 
-    @GetMapping("/post/prac")
-    @ResponseBody
-    public String introduce2(
+    @PostMapping("/post/prac")
+    public String introduce1(
             @RequestParam(value = "name") String name,
-            @RequestParam(value = "male") String male,
             @RequestParam(value = "gender") String gender,
             @RequestParam(value = "year") String year,
             @RequestParam(value = "month") String month,
@@ -139,7 +137,7 @@ public class MainController<value> {
         model.addAttribute("month", month);
         model.addAttribute("day", day);
         model.addAttribute("hobby", hobby);
-        return name + "( " + gender + ", " + year + "." + month + "." + day + "/" + hobby + "를 좋아함";
+        return "pracresult";
     }
 
     @GetMapping("/dto/response1")
@@ -208,6 +206,10 @@ public class MainController<value> {
         return userDTO.getName() + " " + userDTO.getAge();
     } // 2. Axios 와 get, @ModelAttribute 를 사용했을 때 -> 데이터 정상 전송됨!
 
+//    ?key=value
+//    일반폼전송은 ( get, post 상관없이 url )
+//    @RequestParam
+
     // 객체로 받는 방법
     // 1. @ModelAttribute : url 로 들어온 값을 처리하는 친구 -> 객체에 setter 함수를 실행해주는 친구
     //  1) 넘어온 key 를 @ModelAttribute 뒤의 객체에서 필드가 존재하는 지 확인
@@ -221,4 +223,97 @@ public class MainController<value> {
     //  -> 일반 폼 전송 : url 에 데이터 표시 o, body 에 데이터 표시 x
     //
 
+    @PostMapping("/axios/response3")
+    @ResponseBody
+    // url 이었는데, axios post 는 url 에 데이터가 x!
+    // url 에 아무것도 없는데 name, age required = true 기 때문에 필수값이라 에러가 발생!
+    public String axiosRes3(@RequestParam String name, @RequestParam String age){
+        return "이름: " + name + ", 나이: "+ age;
+    }
+
+    @PostMapping("/axios/response4")
+    @ResponseBody
+    public String axiosRes4(UserDTO userDTO){
+        return "이름:" + userDTO.getName() + ", 나이: "+ userDTO.getAge();
+    }
+    // axios + post 데이터 -> @ResponseBody o (null 로 나옴!)
+    //@ ModelAttribute 를 이용해 데이터를 보냈을 때 값이 null
+    // axios 를 보내면 url 로 데이터를 보내는 게 아니라 본문으로 데이터를 보내게 된다
+    // 즉, @ModelAttribute 가 값을 볼 수가 없음!!
+
+    @PostMapping("/axios/response5")
+    @ResponseBody
+    public String axiosRes5(@RequestBody UserDTO userDTO){
+        return "이름:" + userDTO.getName() + ", 나이: "+ userDTO.getAge();
+    } // axios + post 데이터 -> @ResponseBody o!
+
+    // ========== VO 이용 with. axios ==========
+    // get 은 데이터를 url에 담는다!
+    @GetMapping("/axios/vo/response1")
+    @ResponseBody
+    public String axiosVoRes1(@RequestParam String name, @RequestParam String age) {
+        return "이름: " + name + ", 나이: " + age;
+    }
+
+    @GetMapping("/axios/vo/response2")
+    @ResponseBody
+    public String axiosVoRes2(UserVO userVO) {
+        return "이름: "+ userVO.getName() + ", 나이: "+ userVO.getAge();
+    }
+
+    @PostMapping("/axios/vo/response3")
+    @ResponseBody
+    public String axiosVoRes3(@RequestParam String name, @RequestParam String age) {
+        return "이름: " + name + ", 나이: " + age;
+    }
+
+    @PostMapping("/axios/vo/response4")
+    @ResponseBody
+    public String axiosVoRes4(UserVO userVO){
+        return "이름: "+ userVO.getName() + ", 나이: "+ userVO.getAge();
+    }
+
+    @PostMapping("/axios/vo/response5")
+    @ResponseBody
+    public String axiosVoRes5(@RequestBody UserVO userVO){
+        // axios post 로 데이터를 보내면 요청의 본문(body)에 데이터가 들어간다.
+        // @RequestBody 는 요청의 본문에 있는 데이터를 읽을 수 있다.
+        // UserVO 클래스는 setter 메소드가 현재 없는 상태!
+        // @RequestBody 는 데이터를 각각의 필드(변수)에 직접적으로 값을 주입한다!
+        // @RequestBody 는 UserVO UserDTO 상관없이 setter 메소드의 유무와 관계없이 변수에 값을 넣을 수 있다.
+        return "이름: "+ userVO.getName() + ", 나이: "+ userVO.getAge();
+    }
+
+    // 1. 일반 폼 전송에서 데이터를 받을 수 있는 메소드들!
+    // - @RequestParam : GET, POST 메소드
+    // - @PathVariable : GET 메소드
+
+    // 2. DTO 이용해서 일반 폼 전송을 보냈을 때!
+    // - GET : o
+    // - POST + ModelAttribute? : o -> 데이터가 url 에 담겨있기 때문에 ModelAttribute 에서 데이터를 가져올 수 있다.
+    // - POST + RequestBody : x
+
+    // 3. VO 이용 - 일반 폼 전송
+    // - GET : null
+    // - POST + ModelAttribute : null
+    // - POST + RequestBody : x
+
+    // 4. AXIOS - DTO
+    // - GET RequestParam : o
+    // - GET ModelAttribute : o
+    // - GET RequestBody : x
+    // - POST RequestParam : x
+    // - POST ModelAttribute : null
+    // - POST RequestBody : o
+
+    // 5. AXIOS VO
+    // - GET RequestParam : o
+    // - GET ModelAttribute : NULL
+    // - GET RequestBody : x
+    // - POST RequestParam : x
+    // - POST ModelAttribute : null
+    // - POST RequestBody : o
+
+
 }
+
