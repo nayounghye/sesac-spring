@@ -1,8 +1,7 @@
-package com.sesac.sesacspring.controller;
-import com.sesac.sesacspring.vo.PracVO;
+package com.sesac.sesacspring.API.controller;
+import com.sesac.sesacspring.API.vo.PracVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 
 @Controller
 public class PracFormController {

@@ -1,4 +1,4 @@
-package com.sesac.sesacspring.vo;
+package com.sesac.sesacspring.API.vo;
 
 import lombok.Getter;
 @Getter
@@ -9,7 +9,7 @@ public class PracVO {
     private String month;
     private String day;
     private String hobby;
-    
+
     public void setName(String name) {
         this.name = name;
     }
