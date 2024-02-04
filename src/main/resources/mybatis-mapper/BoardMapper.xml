@@ -2,11 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--xml 파일 작성법-->
-<mapper namespace="com.sesac.sesacspring.mapper.UserMapper">
+<mapper namespace="com.sesac.sesacspring..PracBoard.mapper.BoardMapper">
     <select id="retreiveAll"
-            resultType="com.sesac.sesacspring.domain.User">
-        SELECT user.* FROM user
+            resultType="com.sesac.sesacspring.PracBoard.domain.Board">
+        SELECT board.* FROM board
     </select>
 </mapper>
-
