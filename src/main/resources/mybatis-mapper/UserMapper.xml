@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--xml 파일 작성법-->
-<mapper namespace="com.sesac.sesacspring.mapper.UserMapper">
+<mapper namespace="com.sesac.sesacspring.mybatis.mapper.UserMapper">
     <select id="retreiveAll"
-            resultType="com.sesac.sesacspring.domain.User">
+            resultType="com.sesac.sesacspring.mybatis.domain.User">
         SELECT user.* FROM user
     </select>
 </mapper>
