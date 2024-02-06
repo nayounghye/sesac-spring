@@ -8,8 +8,8 @@ import lombok.Setter;
 public class Board {
     private int id;
     private String title;
-    private String name;
     private String content;
-    private String date;
+    private String writer;
+    private String registered;
 }
 

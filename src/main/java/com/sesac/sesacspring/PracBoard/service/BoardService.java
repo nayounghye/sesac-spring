@@ -16,14 +16,49 @@ public class BoardService {
     @Autowired
     BoardMapper boardMapper;
 
-    public List<BoardDTO> retrieveAll(){
-        List<Board> board = BoardMapper.retrieveAll();
-        List<BoardDTO> result = new ArrayList<>();
+    public List<BoardDTO> getBoardAll() {
+        List<Board> result = boardMapper.getBoardAll();
+        List<BoardDTO> boards = new ArrayList<>();
+
+        for (Board board : result) {
+            BoardDTO boardDTO = new BoardDTO();
+            boardDTO.setBoardID(board.getId());
+            boardDTO.setTitle(board.getTitle());
+            boardDTO.setWriter(board.getWriter());
+            boardDTO.setRegistered(board.getRegistered());
+            boardDTO.setNo(100 + board.getId());
+            boards.add(boardDTO);
+        }
+        return boards;
+    }
+
+    public boolean insertBoard(BoardDTO boardDTO) {
+        Board board = new Board();
+        board.setTitle(boardDTO.getTitle());
+        board.setContent(boardDTO.getContent());
+        board.setWriter(boardDTO.getWriter());
+
+        boardMapper.insertBoard(board);
+        return true;
+    }
+
+    public void patchBoard(BoardDTO boardDTO) {
+        // board.getBoardID // title, content, writer
+        Board board = new Board();
+        board.setId(boardDTO.getBoardID()); // update 의 where 에 들어갈 친구
+        board.setTitle(boardDTO.getTitle());
+        board.setContent(boardDTO.getContent());
+        board.setWriter(boardDTO.getWriter());
+        boardMapper.patchBoard(board);
 
     }
 
-    public void createBoard (String title, String name, String content, String date)
-    {BoardMapper.createBoard(title,name,content,date);}
+    public void deleteBoard(int id) {
+        boardMapper.deleteBoard(id);
+    }
 
-
+    public int searchBoard(String word){
+        List<Board> result = boardMapper.searchBoard(word);
+        return result.size();
+    }
 }

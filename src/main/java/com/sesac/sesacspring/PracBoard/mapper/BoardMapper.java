@@ -1,31 +1,20 @@
 package com.sesac.sesacspring.PracBoard.mapper;
 
 import com.sesac.sesacspring.PracBoard.domain.Board;
-import com.sesac.sesacspring.domain.User;
 import org.apache.ibatis.annotations.*;
-
 import java.util.List;
 
 @Mapper
 public interface BoardMapper {
-    @Select("SELECT * FROM board")
-    List<Board> getAllBoards();
+    List<Board> getBoardAll(); // 전체 조회 (SELECT * FROM board;)
 
-    @Select("SELECT * FROM board WHERE title LIKE #{word}")
-    List<Board> searchBoardsByTitle(String word);
+    void insertBoard(Board board); // 삽입 (insert)
+    // mapper 작성 방법 2가지  1. sql 작성 2. xml 작성
+    // 1) mapper 에는 메소드가 있고,  xml 에는 없는 경우 -> 실행했을 때 오류
+    // 2) xml 에는 있고, mapper 에는 없는 경우 -> 실행 자체가 안됨!
 
-    @Insert("insert into board(title, name, content, date) values(#{title}, #{name}, #{content} #{date})")
-    void createBoard(
-            String title, String name, String content, String date
-    );
+    void patchBoard(Board board); // 수정 (update)
+    void deleteBoard(int id); // 삭제 (delete)
 
-    @Update("UPDATE board SET nickname=#{nickname} WHERE id=#{id}")
-    void editBoard(
-            int id, String nickname, String title, String content
-    );
-
-    @Delete("DELETE FROM board WHERE id=#{id}")
-    void deleteBoard(
-            int id
-    );
+    List<Board> searchBoard(String word); // 검색 (search)
 }

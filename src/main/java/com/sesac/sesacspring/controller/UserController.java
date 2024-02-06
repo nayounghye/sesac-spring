@@ -1,8 +1,12 @@
 package com.sesac.sesacspring.controller;
 
+import com.sesac.sesacspring.PracBoard.dto.BoardDTO;
+import com.sesac.sesacspring.PracBoard.service.BoardService;
 import com.sesac.sesacspring.dto.UserDTO;
 import com.sesac.sesacspring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,4 +56,8 @@ public class UserController {
         userService.deleteUser(id);
         return "Delete Success";
     }
-}
+
+
+        }
+
+
